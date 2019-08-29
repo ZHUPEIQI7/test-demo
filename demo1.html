@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body>
+	
+<!-- <script>
+function changeImage()
+{
+	element=document.getElementById('myimage')
+	if (element.src.match("bulbon"))
+	{
+		element.src="/images/pic_bulboff.gif";
+	}
+	else
+	{
+		element.src="/images/pic_bulbon.gif";
+	}
+}
+</script> -->
+<!-- <img id="myimage" onclick="changeImage()" src="/images/pic_bulboff.gif" width="100" height="180"> -->
+
+
+
+<script>
+
+
+var a = new Array();
+a[0] = 1;
+a[2] = 2;
+a[3] = 3;
+alert(a);
+
+var b = new Array('1','2','3','4');
+alert(b);
+
+
+var c = ['2','4','6'];
+alert(c);
+
+
+var x=3,y="aaa",age='67';
+document.write(x*x);
+document.write(y);
+document.write(age);
+
+function change()
+{
+	element=document.getElementById("picture")
+	if(element.src.match("small"))
+	{
+		element.src="images/big.jpg"
+	}else{
+		element.src="images/small.jpg"
+	}
+
+x=document.getElementById("deng");
+x.style.color="#ff0000"
+
+}
+</script>
+<img id="picture" onclick="change()" src="images/small.jpg" width="400px" height="500px">
+
+
+
+
+<p id="deng">点这个灯泡</p>
+
+<input id="demo" type="text">
+<script>
+function myFunction()
+{
+	var x=document.getElementById("demo").value;
+	if(x==""||isNaN(x))
+	{
+		alert(16 + "Volvo");
+	}
+}
+</script>
+<button type="button" onclick="myFunction()">点击这里</button>
+	
+</body>
+</html>
