@@ -117,117 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"demo-1.js":[function(require,module,exports) {
-"use strict";
+})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-console.log("demo-1.js");
-/**
- * return 形式
- */
-// export default { a: 1, b: 2, c: (arg1, arg2) => arg1 + arg2 };
-
-/**
- * 回调函数
- */
-// export default {
-//   a: 1,
-//   b: 2,
-//   c: (arg1, arg2, cb) => {
-//     let sum = arg1 + arg2;
-//     cb(sum);
-//   }
-// };
-
-/**
- * Promise 形式
- */
-
-var _default = {
-  a: 1,
-  b: 2,
-  c: function c(arg1, arg2) {
-    var promsie = new Promise(function (resolve, reject) {
-      var sum = arg1 + arg2;
-      resolve(sum);
-    });
-    return promsie;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
   }
-};
-exports.default = _default;
-},{}],"demo-2.js":[function(require,module,exports) {
-"use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.c = exports.obj = void 0;
-console.log("demo-2.js");
-var obj = {
-  a: 1,
-  b: 2
-};
-exports.obj = obj;
+  return bundleURL;
+}
 
-var c = function c(arg1, arg2) {
-  return arg1 + arg2;
-};
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
 
-exports.c = c;
-},{}],"index.js":[function(require,module,exports) {
-"use strict";
-
-var _demo = _interopRequireDefault(require("./demo-1"));
-
-var demo2 = _interopRequireWildcard(require("./demo-2"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-console.log("index.js"); // import "./promise/promise-1";
-
-// console.log(demo1);
-// console.log(demo1.c(demo1.a, demo1.b));
-var a = _demo.default.c(_demo.default.a, _demo.default.b);
-
-a.then(function (data) {
-  console.log('111', data);
-  return _demo.default.c(data, 5);
-}).then(function (data) {
-  console.log('222', data);
-  return Promise.resolve(data + 10);
-}).then(function (data) {
-  console.log('333', data);
-}).catch(function (e) {
-  console.error(e);
-});
-console.log(a); // console.log(demo2);
-// console.log(demo2.c(demo2.obj.a, demo2.obj.b));
-// console.log(obj);
-// console.log(c);
-// console.log(c(obj.a, obj.b));
-//通过给定的ID来发送请求
-
-axios.get('/user?ID=12345').then(function (response) {
-  console.log(response);
-}).catch(function (err) {
-  console.log(err);
-}); //以上请求也可以通过这种方式来发送
-
-axios.get('/user', {
-  params: {
-    ID: 12345
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
   }
-}).then(function (response) {
-  console.log(response);
-}).catch(function (err) {
-  console.log(err);
-});
-},{"./demo-1":"demo-1.js","./demo-2":"demo-2.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -255,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64706" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51545" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -430,5 +387,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/demo.e31bb0bc.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/demo1.js.map

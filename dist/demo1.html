@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head> 
 <meta charset="utf-8"> 
 <title>菜鸟教程(runoob.com)</title> 
 </head>
-<body>
+<body> -->
 	
 <!-- <script>
 function changeImage()
@@ -61,14 +61,14 @@ x.style.color="#ff0000"
 
 }
 </script> -->
-<img id="picture" onclick="change()" src="/small.55c9a240.jpg" width="400px" height="500px">
+<!-- <img id="picture" onclick="change()" src="images/small.jpg" width="400px" height="500px">
 
 
 
 
 <p id="deng">点这个灯泡</p>
 
-<input id="demo" type="text">
+<input id="demo" type="text"> -->
 <!-- <script>
 function myFunction()
 {
@@ -79,8 +79,125 @@ function myFunction()
 	}
 }
 </script> -->
-<button type="button" onclick="myFunction()">点击这里</button>
+<!-- <button type="button" onclick="myFunction()">点击这里</button>
 	
-<script src="/demo.e31bb0bc.js"></script>
+<script src="./index.js"></script>
+
+
+<p >计算所有参数之和：</p>
+<button onclick="sum()"></button>
+
+<script>
+
+	
+    var arr = [1,2,3,4,5];
+
+var sum = () =>{
+
+	for(i = 0; i < arr.length; i++){
+        var sum = 0;
+        sum = sum + i ;
+    }
+    return sum;
+}
+
+    
+
+    
+	
+	
+document.getElementById("demo").innerHTML = sum ;
+</script>
+
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css元素hover時控制另一个元素的显示隐藏</title>
+    <style>.head li{
+            width: 100px;
+            text-align: center;
+            background-color: lightgray;
+            margin-left: 5px;
+            float: left;
+            list-style: none;
+        }
+        .head li ul{
+            display: none;
+        }
+        .head li:hover ul{
+            display: block;
+        }
+     
+
+
+#A{
+    width: 500px;
+    height: 500px;
+  }
+
+  #a{
+      width: 100%;
+      height: 100%;
+      background-color: red;
+  }
+  #b{
+      width: 100%;
+      height: 100%;
+      background-color: rebeccapurple;
+      display: none;
+  }
+  #a:hover #b{
+      display: block;
+  }</style>
+</head>
+<body>
+    <!-- <div>
+        <ul class="head">
+            <li>首页
+                <ul>
+                    <li>margin</li>
+                    <li>float</li>
+                    <li>padding</li>
+                </ul>
+            </li>
+            <li>关于我们
+                <ul>
+                    <li>margin</li>
+                    <li>float</li>
+                    <li>padding</li>
+                </ul>
+            </li>
+            <li>联系我们
+                <ul>
+                    <li>margin</li>
+                    <li>float</li>
+                    <li>padding</li>
+                </ul>
+            </li>
+            <li>企业建设
+                <ul>
+                    <li>margin</li>
+                    <li>float</li>
+                    <li>padding</li>
+                </ul>
+            </li>
+        </ul>
+    </div> -->
+    
+<div id="A">
+    <div id="a">
+        <div id="b">
+            bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        </div>
+    </div>
+    
+</div>
+
 </body>
 </html>
